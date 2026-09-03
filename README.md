@@ -54,6 +54,13 @@ git clone https://github.com/muneebamunir/smart-restaurant-system.git
 cd smart-restaurant-system
 ```
 
+### 2. Install Dependecies
+
+```bash
+.\install.bat    # For Windows
+./install.sh     # For UNIX or Linux
+```
+
 ### 2. Configure the backend
 
 Create a `.env` file inside the `Backend/` folder:
@@ -64,12 +71,11 @@ JWT_SECRET=your_secret_key_here
 PORT=5000
 ```
 
-Install dependencies and start the server:
+Start the server:
 
 ```bash
-cd Backend
-npm install
-node server.js
+.\run-backend.bat   # For Windows
+./run-backend.sh    # For UNIX or Linux
 ```
 
 The API runs at **http://localhost:5000**.
@@ -79,9 +85,8 @@ The API runs at **http://localhost:5000**.
 In a separate terminal:
 
 ```bash
-cd client
-npm install
-npm start
+.\run-client.bat    # For Windows
+./run-client.sh     # For UNIX or Linux
 ```
 
 The React app runs at **http://localhost:3000**.
