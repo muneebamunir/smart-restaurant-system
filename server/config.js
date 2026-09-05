@@ -3,7 +3,7 @@ module.exports = {
   clientOrigin: "http://localhost:3000",
   mongoOptions: {
     family: 4,
-    tls: true,
+    // tls: true,
     serverSelectionTimeoutMS: 10000
   },
   users: [
