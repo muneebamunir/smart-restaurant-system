@@ -2,12 +2,12 @@
 set -e
 
 echo "Installing Backend..."
-cd ./Backend
+cd ./server
 npm install
 cd ..
 
-echo "Installing Client..."
-cd ./client
+echo "Installing Frontend..."
+cd ./server
 npm install
 cd ..
 

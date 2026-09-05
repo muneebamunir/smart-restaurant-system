@@ -5,7 +5,7 @@ This document explains the detail of architecture and project structure.
 
 ```
 smart-restaurant-system/
-├── Backend/
+├── server/
 │   ├── server.js          # Express API + Socket.IO server
 │   ├── Models/            # Mongoose schemas (Menu, Order, User)
 │   └── uploads/           # Menu item images

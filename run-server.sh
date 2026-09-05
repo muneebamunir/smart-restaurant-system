@@ -1,2 +1,2 @@
-cd ./Backend
+cd ./server
 node server.js

@@ -63,7 +63,7 @@ cd smart-restaurant-system
 
 ### 2. Configure the backend
 
-Create a `.env` file inside the `Backend/` folder:
+Create a `.env` file inside the `server/` folder:
 
 ```env
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>
@@ -74,8 +74,8 @@ PORT=5000
 Start the server:
 
 ```bash
-.\run-backend.bat   # For Windows
-./run-backend.sh    # For UNIX or Linux
+.\run-server.bat   # For Windows
+./run-server.sh    # For UNIX or Linux
 ```
 
 The API runs at **http://localhost:5000**.
