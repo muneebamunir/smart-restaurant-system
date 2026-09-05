@@ -1,5 +1,5 @@
 const express = require("express");
-const Order = require("../models/Order");
+const Order = require("../models/order");
 const verifyToken = require("../middleware/auth");
 
 module.exports = (io) => {

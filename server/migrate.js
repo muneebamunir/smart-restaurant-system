@@ -2,9 +2,9 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const config = require("./config");
 
-const Menu = require("./models/Menu");
-const Order = require("./models/Order");
-const User = require("./models/User");
+const Menu = require("./models/menu");
+const Order = require("./models/order");
+const User = require("./models/user");
 
 const models = [
   { name: "Menu", model: Menu },

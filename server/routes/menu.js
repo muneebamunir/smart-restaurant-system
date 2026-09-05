@@ -1,5 +1,5 @@
 const express = require("express");
-const Menu = require("../models/Menu");
+const Menu = require("../models/menu");
 const verifyToken = require("../middleware/auth");
 const upload = require("../middleware/upload");
 
