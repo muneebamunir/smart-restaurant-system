@@ -60,6 +60,12 @@ cd smart-restaurant-system
 .\install.bat    # For Windows
 ./install.sh     # For UNIX or Linux
 ```
+### 3. Initialize New Database
+
+```bash
+cd server
+npm run migrate
+```
 
 ### 2. Configure the backend
 

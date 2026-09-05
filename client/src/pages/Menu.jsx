@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import socket from "./socket";
+import socket from "../socket";
  
 function Menu({ cart, setCart }) {
   const [menuItems, setMenuItems] = useState([]);
