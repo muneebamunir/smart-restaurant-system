@@ -5,10 +5,5 @@ module.exports = {
     family: 4,
     // tls: true,
     serverSelectionTimeoutMS: 10000
-  },
-  users: [
-    { username: "admin", password: "1234", role: "admin" },
-    { username: "waiter", password: "1234", role: "waiter" },
-    { username: "kitchen", password: "1234", role: "kitchen" }
-  ]
+  }
 };

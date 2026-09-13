@@ -8,7 +8,7 @@ function PrivateRoute({ role, user, children }) {
   }
 
   // ❌ Wrong role
-  if (role && user.role !== role) {
+  if (role && user.role !== role || user.role === "admin") {
     return (
       <div style={{ textAlign: "center", marginTop: "80px" }}>
         <h1>❌ Access Denied</h1>

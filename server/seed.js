@@ -1,7 +1,9 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const config = require("./config");
 const Menu = require("./models/menu");
+const User = require("./models/user");
 
 const menuItems = [
   { name: "Chicken Handi", price: 850, category: "Main Course", image: "1773224615879.png" },
@@ -23,6 +25,32 @@ const menuItems = [
   { name: "Water", price: 80, category: "Beverages", image: "1786289917217.png" }
 ];
 
+const users = [
+  { username: "admin", password: "1234", role: "admin" },
+  { username: "waiter", password: "1234", role: "waiter" },
+  { username: "kitchen", password: "1234", role: "kitchen" }
+];
+
+async function seedUsers() {
+  for (const user of users) {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+
+    await User.updateOne(
+      { username: user.username },
+      {
+        $set: {
+          username: user.username,
+          password: hashedPassword,
+          role: user.role
+        }
+      },
+      { upsert: true }
+    );
+  }
+
+  console.log(`✅ Successfully seeded ${users.length} user accounts.`);
+}
+
 async function seedMenu() {
   try {
     await mongoose.connect(process.env.MONGO_URI, config.mongoOptions);
@@ -34,6 +62,8 @@ async function seedMenu() {
 
     const inserted = await Menu.insertMany(menuItems);
     console.log(`✅ Successfully added ${inserted.length} items to the Menu.`);
+
+    await seedUsers();
   } catch (error) {
     console.error("❌ Seeding failed:", error.message);
   } finally {

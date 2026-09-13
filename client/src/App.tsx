@@ -77,7 +77,7 @@ function App() {
         <Route
           path="/waiter"
           element={
-            <PrivateRoute role="admin" user={user}>
+            <PrivateRoute role="waiter" user={user}>
               <Waiter />
             </PrivateRoute>
           }/>
@@ -85,7 +85,7 @@ function App() {
         <Route
           path="/kitchen"
           element={
-            <PrivateRoute role="admin" user={user}>
+            <PrivateRoute role="kitchen" user={user}>
               <Kitchen />
             </PrivateRoute>
           }/>
