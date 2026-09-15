@@ -33,11 +33,11 @@ Smart Restaurant System is designed for dine-in restaurants that want a digital 
 
 ## Tech Stack
 
-| Layer      | Technologies                                         |
-| ---------- | ---------------------------------------------------- |
-| Frontend   | React, React Router, Axios, Socket.IO Client, QRCode |
-| Backend    | Node.js, Express, Socket.IO, JWT, Multer             |
-| Database   | MongoDB (Atlas) with Mongoose                        |
+| Layer      | Technologies             |
+| ---------- | ------------------------ |
+| Frontend   | React.JS, TailwindCSS    |
+| Backend    | Node.js, Next.JS, JWT    |
+| Database   | MongoDB Community server |
 
 
 ## Prerequisites
@@ -57,14 +57,12 @@ cd smart-restaurant-system
 ### 2. Install Dependecies
 
 ```bash
-.\install.bat    # For Windows
-./install.sh     # For UNIX or Linux
+npm install
 ```
 ### 3. Initialize New Database
 
 ```bash
-cd server
-npm run migrate
+node migrate.js
 ```
 
 ### 2. Configure the backend
