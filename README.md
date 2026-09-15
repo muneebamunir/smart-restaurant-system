@@ -67,7 +67,7 @@ node migrate.js
 
 ### 2. Configure the backend
 
-Create a `.env` file inside the `server/` folder:
+Create a `.env` file in the root folder:
 
 ```env
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>
@@ -78,22 +78,11 @@ PORT=5000
 Start the server:
 
 ```bash
-.\run-server.bat   # For Windows
-./run-server.sh    # For UNIX or Linux
+npm run dev
 ```
 
-The API runs at **http://localhost:5000**.
+The server runs at **http://localhost:3000**.
 
-### 3. Start the frontend
-
-In a separate terminal:
-
-```bash
-.\run-client.bat    # For Windows
-./run-client.sh     # For UNIX or Linux
-```
-
-The React app runs at **http://localhost:3000**.
 
 ## Default Staff Accounts
 

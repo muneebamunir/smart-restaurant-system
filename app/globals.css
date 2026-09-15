@@ -1,6 +1,41 @@
 @import "tailwindcss";
 
+@theme {
+  /* Font family → font-sans */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
+  /* Brand palette → bg-brand-500, text-brand-500, border-brand-600 … */
+  --color-brand-50:   #fff7ed;
+  --color-brand-100:  #ffedd5;
+  --color-brand-500:  #ff6b35;
+  --color-brand-600:  #ea580c;
+  --color-brand-700:  #c2410c;
+  --color-brand-dark: #121417;
+  --color-brand-card: #1a1d21;
+
+  /* Custom shadows → shadow-glow, shadow-glow-lg */
+  --shadow-glow:    0 0 25px -5px rgba(255, 107, 53, 0.4);
+  --shadow-glow-lg: 0 0 35px -5px rgba(255, 107, 53, 0.6);
+
+  /* Animations → animate-bounce-subtle, animate-toast-in */
+  --animate-bounce-subtle: bounce-subtle 2s infinite;
+  --animate-toast-in:      toast-in 0.25s ease-out;
+}
+
+/* Keyframes referenced by the animations above */
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────────── */
 @layer base {
   ::-webkit-scrollbar {
     width: 8px;
@@ -17,6 +52,9 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   COMPONENTS
+   ───────────────────────────────────────────────────────────── */
 @layer components {
   .glass-nav {
     background: rgba(18, 20, 23, 0.85);
