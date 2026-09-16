@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
 import { useCart } from '@/app/context/cartcontext';
+import { useOrders } from '@/app/context/ordercontext';
+import type { Order } from '@/app/types';
 
 interface CheckoutModalProps {
   open: boolean;
@@ -10,20 +12,63 @@ interface CheckoutModalProps {
 }
 
 export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
-  const { total, clearCart } = useCart();
-  const [done, setDone] = useState(false);
+  const {
+    cart,
+    subtotal,
+    tax,
+    delivery,
+    discountAmount,
+    total,
+    promoCode,
+    appliedDiscount,
+    clearCart,
+  } = useCart();
+  const { placeOrder } = useOrders();
+
+  const [placed, setPlaced] = useState<Order | null>(null);
+  const [form, setForm] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    paymentMethod: 'Credit / Debit Card',
+  });
 
   if (!open) return null;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setDone(true);
+
+    const order = placeOrder({
+      items: cart,
+      subtotal,
+      tax,
+      delivery,
+      discountAmount,
+      total,
+      promoCode: appliedDiscount > 0 ? promoCode : undefined,
+      customer: {
+        name: form.name,
+        address: form.address,
+        phone: form.phone,
+        paymentMethod: form.paymentMethod,
+      },
+    });
+
+    setPlaced(order);
     clearCart();
   };
 
   const handleClose = () => {
     onClose();
-    setTimeout(() => setDone(false), 300);
+    setTimeout(() => {
+      setPlaced(null);
+      setForm({
+        name: '',
+        address: '',
+        phone: '',
+        paymentMethod: 'Credit / Debit Card',
+      });
+    }, 300);
   };
 
   return (
@@ -37,7 +82,7 @@ export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
           <X className="w-5 h-5" />
         </button>
 
-        {!done ? (
+        {!placed ? (
           <div className="space-y-5">
             <div className="space-y-1">
               <h3 className="text-xl font-bold text-white">Delivery Details</h3>
@@ -50,6 +95,8 @@ export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                 <input
                   type="text"
                   required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="John Doe"
                   className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500"
                 />
@@ -59,6 +106,8 @@ export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                 <input
                   type="text"
                   required
+                  value={form.address}
+                  onChange={(e) => setForm({ ...form, address: e.target.value })}
                   placeholder="123 Gourmet Ave, Apt 4B"
                   className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500"
                 />
@@ -69,13 +118,19 @@ export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                   <input
                     type="tel"
                     required
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="+1 (555) 000-0000"
                     className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500"
                   />
                 </div>
                 <div>
                   <label className="block text-xs text-gray-400 mb-1">Payment Method</label>
-                  <select className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+                  <select
+                    value={form.paymentMethod}
+                    onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
+                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500"
+                  >
                     <option>Credit / Debit Card</option>
                     <option>Cash on Delivery</option>
                     <option>Apple Pay / Google Pay</option>
@@ -88,7 +143,6 @@ export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                   <span>Amount to Pay:</span>
                   <span className="text-brand-500">${total.toFixed(2)}</span>
                 </div>
-
                 <button
                   type="submit"
                   className="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-xl shadow-glow transition"
@@ -105,15 +159,25 @@ export default function CheckoutModal({ open, onClose }: CheckoutModalProps) {
             </div>
             <h3 className="text-2xl font-extrabold text-white">Order Confirmed!</h3>
             <p className="text-sm text-gray-400 max-w-xs mx-auto">
-              Your delicious meal is now being prepared by our master chefs. Expected arrival in{' '}
+              Order <span className="font-mono text-brand-500 font-bold">{placed.id}</span> is
+              being prepared. Expected arrival in{' '}
               <span className="text-brand-500 font-bold">25-30 mins</span>.
             </p>
-            <div className="pt-4">
+            <div className="pt-4 flex gap-2 justify-center">
+              <button
+                onClick={() => {
+                  handleClose();
+                  document.getElementById('active-orders')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition shadow-glow"
+              >
+                Track Order
+              </button>
               <button
                 onClick={handleClose}
-                className="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition"
+                className="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition"
               >
-                Back to Home
+                Close
               </button>
             </div>
           </div>

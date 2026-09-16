@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { ShoppingBag, X, ArrowRight } from 'lucide-react';
+import { ShoppingBag, X, ArrowRight, Package } from 'lucide-react';
 import { useCart } from '@/app/context/cartcontext';
+import { useOrders } from '@/app/context/ordercontext';
 import CheckoutModal from './checkoutmodal';
+import OrdersDrawer from './ordersdrawer';
 import Image from 'next/image';
 
 export default function CartDrawer() {
@@ -24,11 +26,19 @@ export default function CartDrawer() {
     setDrawerOpen,
   } = useCart();
 
+  const { activeOrders } = useOrders();
+
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [ordersDrawerOpen, setOrdersDrawerOpen] = useState(false);
 
   const handleCheckout = () => {
     setDrawerOpen(false);
     setCheckoutOpen(true);
+  };
+
+  const handleViewActiveOrders = () => {
+    setDrawerOpen(false);
+    setOrdersDrawerOpen(true);
   };
 
   return (
@@ -44,24 +54,45 @@ export default function CartDrawer() {
         />
 
         <div
-          className={`absolute top-0 right-0 bottom-0 w-full max-w-md bg-[#121417] border-l border-gray-800 shadow-2xl flex flex-col justify-between transition-transform duration-300 pointer-events-auto ${
+          className={`absolute top-0 right-0 bottom-0 w-full max-w-md bg-brand-dark border-l border-gray-800 shadow-2xl flex flex-col justify-between transition-transform duration-300 pointer-events-auto ${
             isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          <div className="p-5 border-b border-gray-800 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-brand-500" />
-              <h3 className="text-lg font-bold text-white">Your Food Order</h3>
+          {/* ── HEADER ─────────────────────────────────────────── */}
+          <div className="p-5 border-b border-gray-800 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <ShoppingBag className="w-5 h-5 text-brand-500 shrink-0" />
+              <h3 className="text-lg font-bold text-white truncate">Your Food Order</h3>
             </div>
-            <button
-              onClick={() => setDrawerOpen(false)}
-              className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition"
-              aria-label="Close cart"
-            >
-              <X className="w-5 h-5" />
-            </button>
+
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Active Orders pill */}
+              <button
+                onClick={handleViewActiveOrders}
+                title="View active orders"
+                className="relative flex items-center gap-1.5 bg-gray-800 hover:bg-gray-700 text-gray-200 px-3 py-1.5 rounded-full border border-gray-700 transition text-xs font-semibold active:scale-95"
+              >
+                <Package className="w-4 h-4 text-brand-500" />
+                <span className="hidden sm:inline">Active Orders</span>
+                {activeOrders.length > 0 && (
+                  <span className="bg-brand-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-4.5 text-center">
+                    {activeOrders.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Close cart */}
+              <button
+                onClick={() => setDrawerOpen(false)}
+                className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition"
+                aria-label="Close cart"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
+          {/* ── ITEMS LIST ─────────────────────────────────────── */}
           <div className="grow overflow-y-auto p-5 space-y-4">
             {cart.length === 0 ? (
               <div className="text-center py-12 space-y-3">
@@ -78,7 +109,13 @@ export default function CartDrawer() {
                   className="flex items-center gap-3 bg-gray-900/80 border border-gray-800 p-3 rounded-2xl"
                 >
                   <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0">
-                    <Image src={item.image} alt={item.title} fill sizes="64px" className="object-cover" />
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
                   </div>
                   <div className="grow min-w-0">
                     <h4 className="text-sm font-bold text-white line-clamp-1">{item.title}</h4>
@@ -86,7 +123,9 @@ export default function CartDrawer() {
                       ${(item.price * item.qty).toFixed(2)}
                     </p>
                     {item.note && (
-                      <p className="text-[10px] text-gray-500 italic truncate">Note: {item.note}</p>
+                      <p className="text-[10px] text-gray-500 italic truncate">
+                        Note: {item.note}
+                      </p>
                     )}
                   </div>
                   <div className="flex items-center gap-2 bg-gray-800 px-2 py-1 rounded-xl border border-gray-700">
@@ -109,6 +148,7 @@ export default function CartDrawer() {
             )}
           </div>
 
+          {/* ── FOOTER / SUMMARY ──────────────────────────────── */}
           <div className="p-5 border-t border-gray-800 bg-gray-900/50 space-y-4">
             <div className="flex gap-2">
               <input
@@ -173,6 +213,10 @@ export default function CartDrawer() {
       </div>
 
       <CheckoutModal open={checkoutOpen} onClose={() => setCheckoutOpen(false)} />
+      <OrdersDrawer
+        open={ordersDrawerOpen}
+        onClose={() => setOrdersDrawerOpen(false)}
+      />
     </>
   );
 }
