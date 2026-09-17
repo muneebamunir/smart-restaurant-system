@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { X } from 'lucide-react';
-import { useCart } from '@/app/context/cartcontext';
-import type { FoodItem } from '@/app/types';
+import { useCart } from '@/context/cartcontext';
+import type { FoodItem } from '@/types';
 import Image from 'next/image';
 
 const SPICE_LEVELS = ['Mild', 'Medium', 'Hot 🔥'] as const;

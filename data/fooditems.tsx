@@ -1,5 +1,5 @@
 // data/foodItems.ts
-import type { FoodItem } from '../types';
+import type { FoodItem } from '@/types';
 
 export const foodItems: FoodItem[] = [
   {

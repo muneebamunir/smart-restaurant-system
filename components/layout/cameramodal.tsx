@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Camera, X, Loader2, CameraOff, Scan } from 'lucide-react';
-import { useMenuFilter } from '@/app/context/menufiltercontext';
-import { useToast } from '@/app/context/toastcontext';
+import { useMenuFilter } from '@/context/menufiltercontext';
+import { useToast } from '@/context/toastcontext';
 
 type Status = 'loading' | 'ready' | 'error';
 

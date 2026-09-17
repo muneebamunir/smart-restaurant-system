@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
-import { useCart } from '@/app/context/cartcontext';
-import { useOrders } from '@/app/context/ordercontext';
-import type { Order } from '@/app/types';
+import { useCart } from '@/context/cartcontext';
+import { useOrders } from '@/context/ordercontext';
+import type { Order } from '@/types';
 
 interface CheckoutModalProps {
   open: boolean;

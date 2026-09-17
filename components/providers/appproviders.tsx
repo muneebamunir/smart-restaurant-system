@@ -1,10 +1,10 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { ToastProvider } from '@/app/context/toastcontext';
-import { CartProvider } from '@/app/context/cartcontext';
-import { MenuFilterProvider } from '@/app/context/menufiltercontext';
-import { OrderProvider } from '@/app/context/ordercontext';
+import { ToastProvider } from '@/context/toastcontext';
+import { CartProvider } from '@/context/cartcontext';
+import { MenuFilterProvider } from '@/context/menufiltercontext';
+import { OrderProvider } from '@/context/ordercontext';
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   return (

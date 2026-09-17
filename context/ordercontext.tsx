@@ -9,8 +9,8 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { CartItem, Order, OrderCustomer, OrderStatus } from '@/app/types';
-import { deriveOrderStatus } from '@/app/types';
+import type { CartItem, Order, OrderCustomer, OrderStatus } from '@/types';
+import { deriveOrderStatus } from '@/types';
 
 const STORAGE_KEY = 'tastecraft.activeOrders';
 const DELIVERY_ETA_MS = 30 * 60 * 1000; // 30 minutes

@@ -1,9 +1,9 @@
-import Header from '@/app/components/layout/header';
-import Footer from '@/app/components/layout/footer';
-import Hero from '@/app/components/sections/hero';
-import OfferBanner from '@/app/components/sections/offerbanner';
-import MenuSection from '@/app/components/sections/menusection';
-import CartDrawer from '@/app/components/layout/cartdrawer';
+import Header from '@/components/layout/header';
+import Footer from '@/components/layout/footer';
+import Hero from '@/components/sections/hero';
+import OfferBanner from '@/components/sections/offerbanner';
+import MenuSection from '@/components/sections/menusection';
+import CartDrawer from '@/components/layout/cartdrawer';
 
 export default function HomePage() {
   return (

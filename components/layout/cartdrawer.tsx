@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ShoppingBag, X, ArrowRight, Package } from 'lucide-react';
-import { useCart } from '@/app/context/cartcontext';
-import { useOrders } from '@/app/context/ordercontext';
+import { useCart } from '@/context/cartcontext';
+import { useOrders } from '@/context/ordercontext';
 import CheckoutModal from './checkoutmodal';
 import OrdersDrawer from './ordersdrawer';
 import Image from 'next/image';

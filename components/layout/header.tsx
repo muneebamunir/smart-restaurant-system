@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Utensils, Search, Camera, ShoppingBag, Menu, X } from 'lucide-react';
-import { useCart } from '@/app/context/cartcontext';
-import { useMenuFilter } from '@/app/context/menufiltercontext';
-import CameraModal from '@/app/components/layout/cameramodal';
+import { useCart } from '@/context/cartcontext';
+import { useMenuFilter } from '@/context/menufiltercontext';
+import CameraModal from '@/components/layout/cameramodal';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#hero' },

@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { CartItem } from '../types';
+import type { CartItem } from '@/types';
 import { foodItems } from '../data/fooditems';
 import { useToast } from './toastcontext';
 

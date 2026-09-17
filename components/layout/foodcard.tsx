@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { Sliders, Plus } from 'lucide-react';
-import { useCart } from '@/app/context/cartcontext';
-import type { FoodItem } from '@/app/types';
+import { useCart } from '@/context/cartcontext';
+import type { FoodItem } from '@/types';
 
 interface FoodCardProps {
   item: FoodItem;

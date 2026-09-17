@@ -1,11 +1,11 @@
 'use client';
 
-import { useMenuFilter, type CategoryFilter } from '@/app/context/menufiltercontext';
-import type { FoodItem } from '@/app/types';
+import { useMenuFilter, type CategoryFilter } from '@/context/menufiltercontext';
+import type { FoodItem } from '@/types';
 import { useState } from 'react';
 import { UtensilsCrossed } from 'lucide-react';
-import FoodCard from '@/app/components/layout/foodcard';
-import CustomizeModal from '@/app/components/layout/customizemodal';
+import FoodCard from '@/components/layout/foodcard';
+import CustomizeModal from '@/components/layout/customizemodal';
 
 const CATEGORIES: { id: CategoryFilter; label: string }[] = [
   { id: 'all', label: 'All Dishes' },

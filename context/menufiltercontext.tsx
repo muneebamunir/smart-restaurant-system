@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 import { foodItems } from '../data/fooditems';
-import type { Category, FoodItem } from '../types';
+import type { Category, FoodItem } from '@/types';
 
 export type CategoryFilter = Category | 'all';
 

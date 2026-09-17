@@ -11,8 +11,8 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import Image from 'next/image';
-import { useOrders } from '@/app/context/ordercontext';
-import { deriveOrderStatus, type Order, type OrderStatus } from '@/app/types';
+import { useOrders } from '@/context/ordercontext';
+import { deriveOrderStatus, type Order, type OrderStatus } from '@/types';
 
 const STATUS_META: Record<
   OrderStatus,

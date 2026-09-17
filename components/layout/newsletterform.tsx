@@ -1,6 +1,6 @@
 'use client';
 
-import { useToast } from '@/app/context/toastcontext';
+import { useToast } from '@/context/toastcontext';
 
 export default function NewsletterForm() {
   const { showToast } = useToast();

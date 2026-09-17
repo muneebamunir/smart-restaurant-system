@@ -1,7 +1,7 @@
 // components/sections/OfferBanner.tsx
 'use client';
 
-import { useCart } from '@/app/context/cartcontext';
+import { useCart } from '@/context/cartcontext';
 
 export default function OfferBanner() {
   const { setPromoCode, applyPromoCode, setDrawerOpen } = useCart();
