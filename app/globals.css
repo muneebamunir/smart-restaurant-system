@@ -12,6 +12,8 @@
   --color-brand-700:  #c2410c;
   --color-brand-dark: #121417;
   --color-brand-card: #1a1d21;
+  --color-brand-sidebar: #111317;
+  --color-brand-border:  #232730;
 
   /* Custom shadows → shadow-glow, shadow-glow-lg */
   --shadow-glow:    0 0 25px -5px rgba(255, 107, 53, 0.4);

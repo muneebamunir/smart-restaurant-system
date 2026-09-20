@@ -22,7 +22,7 @@ const cached: CachedConnection =
 global.__mongooseCache = cached;
 
 export async function connectDB({
-  uri = process.env.MONGO_URL,
+  uri = process.env.MONGO_URI,
   onError,
   onSuccess,
   mongooseOptions,
