@@ -11,7 +11,6 @@ import {
   User,
   LogOut,
   LogIn,
-  ShieldCheck,
 } from 'lucide-react';
 import { useToast } from '@/context/toastcontext';
 
@@ -129,7 +128,7 @@ export default function UserProfileDropdown({
         <div
           className={`absolute ${
             align === 'right' ? 'right-0' : 'left-0'
-          } mt-2 w-64 bg-brand-card/95 backdrop-blur-xl border border-brand-border rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150`}
+          } mt-2 w-56 bg-brand-card/95 backdrop-blur-xl border border-brand-border rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150`}
         >
           {/* Header Section */}
           <div className="px-4 py-2.5 border-b border-brand-border/60">
@@ -173,17 +172,14 @@ export default function UserProfileDropdown({
               <span>Public Store</span>
             </Link>
 
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                showToast('User profile settings coming soon.');
-              }}
-              className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white hover:bg-gray-800/80 transition text-left"
+            <Link
+              href="/profile"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white hover:bg-gray-800/80 transition"
             >
               <User className="w-4 h-4 text-blue-400" />
               <span>Profile Settings</span>
-            </button>
+            </Link>
           </div>
 
           {/* Bottom Action Section: Root page shows Login button; Admin/Order pages show Logout */}
