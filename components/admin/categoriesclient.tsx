@@ -3,17 +3,9 @@
 import { useState } from 'react';
 import { Plus, Edit3, Trash2, X, AlertTriangle, Tags } from 'lucide-react';
 import { useToast } from '@/context/toastcontext';
+import { toSlug } from '@/utils/slug';
 
-/* ──────────────────────────────────────────────────────────
-   Slug helper — mirrors the server-side version
-   ────────────────────────────────────────────────────────── */
-function toSlug(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+
 
 /* ══════════════════════════════════════════════════════════
    MAIN COMPONENT

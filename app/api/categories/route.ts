@@ -3,22 +3,7 @@ import type { PipelineStage } from 'mongoose';
 import { connectDB } from '@/utils/database';
 import Category from '@/models/category';
 import Item from '@/models/item';
-
-/* ──────────────────────────────────────────────────────
-   Helpers
-   ────────────────────────────────────────────────────── */
-
-function toSlug(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function isDuplicateKeyError(e: unknown): e is { code: number; keyPattern?: Record<string, 1> } {
-  return typeof e === 'object' && e !== null && 'code' in e && (e as { code: number }).code === 11000;
-}
+import { toSlug, isDuplicateKeyError } from '@/utils/slug';
 
 /* ──────────────────────────────────────────────────────
    GET /api/categories
@@ -111,5 +96,48 @@ export async function GET(req: Request) {
   } catch (e) {
     console.error('[GET /api/categories]', e);
     return NextResponse.json({ error: 'Failed to fetch categories.' }, { status: 500 });
+  }
+}
+
+/* ──────────────────────────────────────────────────────
+   POST /api/categories
+   body: { name: string, slug?: string }
+   ────────────────────────────────────────────────────── */
+
+export async function POST(req: Request) {
+  try {
+    await connectDB();
+
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
+    }
+
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    if (!name) {
+      return NextResponse.json({ error: 'Name is required.' }, { status: 400 });
+    }
+    if (name.length > 60) {
+      return NextResponse.json({ error: 'Name must be 60 characters or fewer.' }, { status: 400 });
+    }
+
+    const rawSlug = typeof body.slug === 'string' && body.slug.trim() ? body.slug : name;
+    const slug = toSlug(rawSlug);
+    if (!slug) {
+      return NextResponse.json({ error: 'Invalid slug.' }, { status: 400 });
+    }
+
+    const category = await Category.create({ name, slug });
+    return NextResponse.json(category, { status: 201 });
+  } catch (e) {
+    if (isDuplicateKeyError(e)) {
+      const field = Object.keys(e.keyPattern ?? {})[0] ?? 'field';
+      return NextResponse.json(
+        { error: `A category with that ${field} already exists.` },
+        { status: 409 }
+      );
+    }
+    console.error('[POST /api/categories]', e);
+    return NextResponse.json({ error: 'Failed to create category.' }, { status: 500 });
   }
 }

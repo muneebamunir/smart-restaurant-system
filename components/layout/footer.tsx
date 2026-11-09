@@ -1,5 +1,6 @@
-import { Utensils, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Instagram, Facebook, Twitter } from 'lucide-react';
 import NewsletterForm from './newsletterform';
+import BrandLogo from './brandlogo';
 
 const SOCIALS = [
   { icon: Instagram, label: 'Instagram' },
@@ -13,14 +14,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 space-y-4">
-            <a href="#" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white">
-                <Utensils className="w-5 h-5" />
-              </div>
-              <span className="text-xl font-extrabold text-white">
-                Taste<span className="text-brand-500">Craft</span>
-              </span>
-            </a>
+            <BrandLogo href="#" size="md" />
             <p className="text-sm text-gray-400 max-w-sm">
               Crafting exceptional culinary experiences delivered straight to your home. Fresh,
               organic, and always delicious.

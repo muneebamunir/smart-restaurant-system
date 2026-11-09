@@ -2,20 +2,9 @@ import { NextResponse } from 'next/server';
 import { connectDB } from '@/utils/database';
 import Category from '@/models/category';
 import Item from '@/models/item';
+import { toSlug, isDuplicateKeyError } from '@/utils/slug';
 
 type RouteContext = { params: Promise<{ id: string }> };
-
-function toSlug(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function isDuplicateKeyError(e: unknown): e is { code: number; keyPattern?: Record<string, 1> } {
-  return typeof e === 'object' && e !== null && 'code' in e && (e as { code: number }).code === 11000;
-}
 
 /* ──────────────────────────────────────────────────────
    GET /api/categories/:id

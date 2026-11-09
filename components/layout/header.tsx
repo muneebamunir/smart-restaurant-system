@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Utensils, Search, Camera, ShoppingBag, Menu, X } from 'lucide-react';
+import { Search, Camera, ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '@/context/cartcontext';
 import { useMenuFilter } from '@/context/menufiltercontext';
 import CameraModal from '@/components/layout/cameramodal';
+import BrandLogo from '@/components/layout/brandlogo';
+import UserProfileDropdown from '@/components/layout/userprofiledropdown';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#hero' },
@@ -23,14 +25,7 @@ export default function Header() {
     <>
       <header className="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-gray-800 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-brand-600 to-amber-400 flex items-center justify-center text-white shadow-glow group-hover:scale-105 transition-transform">
-              <Utensils className="w-6 h-6" />
-            </div>
-            <span className="text-2xl font-extrabold tracking-tight text-white">
-              Taste<span className="text-brand-500">Craft</span>
-            </span>
-          </a>
+          <BrandLogo size="lg" />
 
           <nav className="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-300">
             {NAV_LINKS.map((link) => (
@@ -44,8 +39,8 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3 sm:gap-4">
-            <div className="relative hidden sm:block w-48 md:w-64">
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            <div className="relative hidden sm:block w-40 md:w-56 lg:w-64">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
@@ -67,17 +62,27 @@ export default function Header() {
 
             <button
               onClick={() => setDrawerOpen(true)}
-              className="relative flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2.5 rounded-full shadow-glow hover:shadow-glow-lg transition-all active:scale-95"
+              className="relative flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full shadow-glow hover:shadow-glow-lg transition-all active:scale-95 shrink-0"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="hidden lg:inline text-sm">View Order</span>
-              <span className="bg-white text-brand-600 text-xs font-bold px-2 py-0.5 rounded-full ml-1 min-w-5 text-center">
+              <span className="bg-white text-brand-600 text-xs font-bold px-2 py-0.5 rounded-full ml-0.5 sm:ml-1 min-w-5 text-center">
                 {count}
               </span>
               <span className="text-xs opacity-90 hidden sm:inline border-l border-brand-400 pl-2">
                 ${subtotal.toFixed(2)}
               </span>
             </button>
+
+            {/* User Profile Dropdown on Root Page */}
+            <UserProfileDropdown
+              variant="root"
+              user={{
+                name: 'Guest Diner',
+                email: 'guest@tastecraft.com',
+                role: 'customer',
+              }}
+            />
 
             <button
               onClick={() => setMobileOpen((v) => !v)}

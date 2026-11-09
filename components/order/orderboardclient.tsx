@@ -9,6 +9,8 @@ import {
 import { useToast } from '@/context/toastcontext';
 import { useRouter } from 'next/navigation';
 import NewOrderModal from './newordermodal';
+import BrandLogo from '@/components/layout/brandlogo';
+import UserProfileDropdown from '@/components/layout/userprofiledropdown';
 
 /* ──────────────────────────────────────────────────────────
    Types
@@ -148,19 +150,7 @@ export default function OrderBoardClient({ initialOrders, menu, tables, staff }:
       {/* ─── HEADER ─── */}
       <header className="fixed top-0 left-0 right-0 z-40 h-16 glass-nav border-b border-brand-border flex items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-3 sm:gap-6">
-          <a href="/order" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-brand-600 to-amber-400 flex items-center justify-center text-white shadow-glow">
-              <ChefHat className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-extrabold tracking-tight text-white leading-tight">
-                Taste<span className="text-brand-500">Craft</span>
-              </span>
-              <span className="text-[10px] text-amber-400 font-bold tracking-wide uppercase">
-                Kitchen & Floor Live
-              </span>
-            </div>
-          </a>
+          <BrandLogo href="/order" subtitle="Kitchen & Floor Live" icon="chef-hat" />
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -193,66 +183,7 @@ export default function OrderBoardClient({ initialOrders, menu, tables, staff }:
           </button>
 
           <div className="h-6 w-px bg-brand-border hidden sm:block" />
-
-          <div className="relative">
-            <button
-              onClick={() => setProfileOpen((v) => !v)}
-              className="flex items-center gap-2 bg-gray-900/80 hover:bg-gray-800 p-1.5 sm:px-3 sm:py-1.5 rounded-xl border border-brand-border transition"
-            >
-              <div className="relative">
-                <div className="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-xs border border-brand-500/30 uppercase">
-                  {staff.name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
-                </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-brand-dark" />
-              </div>
-              <div className="hidden md:block text-left">
-                <p className="text-xs font-bold text-white leading-tight">{staff.name}</p>
-                <p className="text-[10px] text-gray-400">{staff.email}</p>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 text-gray-400 transition-transform ${
-                  profileOpen ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-
-            {profileOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-brand-card border border-brand-border rounded-2xl shadow-2xl py-2 z-50">
-                <div className="px-4 py-2.5 border-b border-brand-border/60">
-                  <p className="text-xs font-bold text-white">{staff.name}</p>
-                  <p className="text-[10px] text-gray-400 truncate">{staff.email}</p>
-                  <span className="inline-block mt-1 px-2 py-0.5 rounded text-[9px] font-bold bg-brand-500/10 text-brand-400 border border-brand-500/20 uppercase tracking-wider">
-                    {staff.role}
-                  </span>
-                </div>
-                <div className="py-1">
-                  <a
-                    href="/admin"
-                    className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white hover:bg-gray-800/80"
-                  >
-                    <LayoutDashboard className="w-4 h-4 text-brand-500" />
-                    <span>Admin Dashboard</span>
-                  </a>
-                  <button
-                    onClick={() => { setProfileOpen(false); showToast('Profile page coming soon.'); }}
-                    className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white hover:bg-gray-800/80"
-                  >
-                    <User className="w-4 h-4 text-amber-400" />
-                    <span>Profile</span>
-                  </button>
-                </div>
-                <div className="pt-1 border-t border-brand-border/60">
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Logout</span>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+          <UserProfileDropdown variant="order" user={staff} />
         </div>
       </header>
 
